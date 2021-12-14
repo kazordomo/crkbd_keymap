@@ -19,47 +19,6 @@ enum custom_keycodes {
   LNX_WS5
 };
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case LNX_WS1:
-             if (record->event.pressed) {
-                SEND_STRING(SS_LGUI(KC_1));
-            } else {
-                // when released
-            }
-            break;
-        case LNX_WS2:
-             if (record->event.pressed) {
-                SEND_STRING(SS_LGUI(KC_2));
-            } else {
-                // when released
-            }
-            break;
-        case LNX_WS3:
-             if (record->event.pressed) {
-                SEND_STRING(SS_LGUI(KC_3));
-            } else {
-                // when released
-            }
-            break;
-        case LNX_WS4:
-             if (record->event.pressed) {
-                SEND_STRING(SS_LGUI(KC_4));
-            } else {
-                // when released
-            }
-            break;
-        case LNX_WS5:
-             if (record->event.pressed) {
-                SEND_STRING(SS_LGUI(KC_5));
-            } else {
-                // when released
-            }
-            break;
-    }
-    return true;
-};
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    // Base
   [L_BASE] = LAYOUT_split_3x6_3(
@@ -73,7 +32,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [L_NUM] = LAYOUT_split_3x6_3(
       SE_HALF,  KC_1, KC_2, KC_3, KC_4,  KC_5, KC_6,  KC_7, KC_8, KC_9, KC_0, XXXXXXX,
       XXXXXXX, SE_QUOT, SE_DQUO, SE_GRV, SE_ACUT, SE_TILD, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-      XXXXXXX, SE_SLSH, SE_PIP, SE_BSLS, SE_AT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+      XXXXXXX, SE_SLSH, SE_PIPE, SE_BSLS, SE_AT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
       KC_DEL,  KC_TAB, KC_SPC, KC_ENT,  KC_BSPC, KC_ESC
   ),
 
@@ -233,9 +192,48 @@ bool oled_task_user(void) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if (record->event.pressed) {
-    set_keylog(keycode, record);
-  }
+    if (record->event.pressed) {
+        set_keylog(keycode, record);
+    }
+
+    switch (keycode) {
+        case LNX_WS1:
+             if (record->event.pressed) {
+                SEND_STRING(SS_LGUI("1"));
+            } else {
+                // when released
+            }
+            break;
+        case LNX_WS2:
+             if (record->event.pressed) {
+                SEND_STRING(SS_LGUI("2"));
+            } else {
+                // when released
+            }
+            break;
+        case LNX_WS3:
+             if (record->event.pressed) {
+                SEND_STRING(SS_LGUI("3"));
+            } else {
+                // when released
+            }
+            break;
+        case LNX_WS4:
+             if (record->event.pressed) {
+                SEND_STRING(SS_LGUI("4"));
+            } else {
+                // when released
+            }
+            break;
+        case LNX_WS5:
+             if (record->event.pressed) {
+                SEND_STRING(SS_LGUI("5"));
+            } else {
+                // when released
+            }
+            break;
+    }
   return true;
 }
+
 #endif // OLED_ENABLE

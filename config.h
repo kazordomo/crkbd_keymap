@@ -1,6 +1,6 @@
 #pragma once
 
-//#define USE_MATRIX_I2C
+// #define USE_MATRIX_I2C
 
 #define TAPPING_TERM 200
 
