@@ -1,5 +1,6 @@
 #include QMK_KEYBOARD_H
 #include <stdio.h>
+#include <keymap_swedish.h>
 
 #define L_BASE 0
 #define L_NUM 1
@@ -8,30 +9,79 @@
 #define L_NAV 4
 #define L_MOUSE 5
 #define L_MEDIA 6
-#define L_RGB 7
+#define L_LINUX 7
+
+enum custom_keycodes {
+  LNX_WS1,
+  LNX_WS2,
+  LNX_WS3,
+  LNX_WS4,
+  LNX_WS5
+};
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case LNX_WS1:
+             if (record->event.pressed) {
+                SEND_STRING(SS_LGUI(KC_1));
+            } else {
+                // when released
+            }
+            break;
+        case LNX_WS2:
+             if (record->event.pressed) {
+                SEND_STRING(SS_LGUI(KC_2));
+            } else {
+                // when released
+            }
+            break;
+        case LNX_WS3:
+             if (record->event.pressed) {
+                SEND_STRING(SS_LGUI(KC_3));
+            } else {
+                // when released
+            }
+            break;
+        case LNX_WS4:
+             if (record->event.pressed) {
+                SEND_STRING(SS_LGUI(KC_4));
+            } else {
+                // when released
+            }
+            break;
+        case LNX_WS5:
+             if (record->event.pressed) {
+                SEND_STRING(SS_LGUI(KC_5));
+            } else {
+                // when released
+            }
+            break;
+    }
+    return true;
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    // Base
   [L_BASE] = LAYOUT_split_3x6_3(
-      XXXXXXX, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, XXXXXXX,
-      XXXXXXX, LGUI_T(KC_A), LALT_T(KC_S), LCTL_T(KC_D), LSFT_T(KC_F), KC_G, KC_H, LSFT_T(KC_J), LCTL_T(KC_K), LALT_T(KC_L), LGUI_T(KC_SCLN), XXXXXXX,
-      XXXXXXX, KC_Z, ALGR_T(KC_X), KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, ALGR_T(KC_DOT), KC_MINS, XXXXXXX,
-      LT(MO(L_MEDIA), KC_DEL),   LT(MO(L_NAV), KC_TAB),  LT(MO(L_SYM), KC_SPC), LT(MO(L_NUM), KC_ENT),  LT(MO(L_MOUSE), KC_BSPC), LT(MO(L_FUN), KC_ESC)
+      XXXXXXX, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, SE_ARNG,
+      XXXXXXX, LGUI_T(KC_A), LALT_T(KC_S), LCTL_T(KC_D), LSFT_T(KC_F), KC_G, KC_H, LSFT_T(KC_J), LCTL_T(KC_K), LALT_T(KC_L), LGUI_T(SE_ODIA), SE_ADIA,
+      XXXXXXX, KC_Z, ALGR_T(KC_X), KC_C, KC_V, KC_B, KC_N, KC_M, SE_COMM, ALGR_T(SE_DOT), SE_MINS, XXXXXXX,
+      LT(MO(L_MEDIA), KC_DEL),   LT(MO(L_NAV), KC_SPC),  LT(MO(L_SYM), KC_TAB), LT(MO(L_NUM), KC_ENT),  LT(MO(L_MOUSE), KC_BSPC), LT(MO(L_FUN), KC_ESC)
   ),
 
-  // Numbers
+  // Numbers and symbols
   [L_NUM] = LAYOUT_split_3x6_3(
-      KC_AT,    KC_1, KC_2, KC_3, KC_4,  KC_5, KC_6,  KC_7, KC_8, KC_9, KC_0, XXXXXXX,
-      XXXXXXX, KC_LBRC, KC_LT, KC_GT, KC_RBRC, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+      SE_HALF,  KC_1, KC_2, KC_3, KC_4,  KC_5, KC_6,  KC_7, KC_8, KC_9, KC_0, XXXXXXX,
+      XXXXXXX, SE_QUOT, SE_DQUO, SE_GRV, SE_ACUT, SE_TILD, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+      XXXXXXX, SE_SLSH, SE_PIP, SE_BSLS, SE_AT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
       KC_DEL,  KC_TAB, KC_SPC, KC_ENT,  KC_BSPC, KC_ESC
   ),
 
    // Symbols
   [L_SYM] = LAYOUT_split_3x6_3(
-      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_AMPR, KC_QUOTE,  KC_DQT, KC_SLSH, KC_PIPE, KC_BSLS,
-      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_PERC, KC_LPRN,  KC_LCBR, KC_RCBR, KC_RPRN, KC_PERC,
-      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_HASH, KC_DLR, KC_BSLS, KC_ASTR, KC_PLUS, KC_TILD,
+      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, SE_AMPR, SE_LBRC,  SE_LABK, SE_RABK, SE_RBRC, XXXXXXX,
+      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, SE_PERC, SE_LPRN,  SE_LCBR, SE_RCBR, SE_RPRN, XXXXXXX,
+      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, SE_HASH, SE_DLR, XXXXXXX, SE_ASTR, SE_PLUS, XXXXXXX,
       KC_DEL,  KC_TAB, KC_SPC, KC_QUES,  KC_EQL, KC_EXLM
   ),
 
@@ -66,10 +116,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
       KC_DEL,  KC_TAB, KC_SPC, KC_ENT,  KC_BSPC, KC_ESC
   ),
-
-   // Media
-  [L_RGB] = LAYOUT_split_3x6_3(
-      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+   // Linux
+  [L_LINUX] = LAYOUT_split_3x6_3(
+      XXXXXXX, LNX_WS1, LNX_WS2, LNX_WS3, LNX_WS4, LNX_WS5, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
       KC_DEL,  KC_TAB, KC_SPC, KC_ENT,  KC_BSPC, KC_ESC
@@ -107,6 +156,9 @@ void oled_render_layer_state(void) {
             break;
         case L_MEDIA:
             oled_write_ln_P(PSTR("Media"), false);
+            break;
+        case L_LINUX:
+            oled_write_ln_P(PSTR("Linux"), false);
             break;
         // case L_ADJUST:
         // case L_ADJUST|L_LOWER:
